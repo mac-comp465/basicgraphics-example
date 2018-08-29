@@ -72,9 +72,15 @@ AutoBuild_use_package_OpenGL(${PROJECT_NAME} PUBLIC)
 
 
 # GLM
-AutoBuild_use_package(glm . ${PROJECT_NAME} PUBLIC glm
-    DOWNLOAD_ARGS  GIT_REPOSITORY "https://github.com/g-truc/glm.git" GIT_TAG master
-)
+#AutoBuild_use_package(glm . ${PROJECT_NAME} PUBLIC glm
+#    DOWNLOAD_ARGS  GIT_REPOSITORY "https://github.com/g-truc/glm.git" GIT_TAG master
+#)
+
+if (NOT MSVC)
+   find_package(ZLIB REQUIRED)
+   find_library(CORE_FOUNDATION_FRAMEWORK CoreFoundation)
+   target_link_libraries(${PROJECT_NAME} PUBLIC ${CORE_FOUNDATION_FRAMEWORK})
+endif()
 
 # GLEW
 if (NOT APPLE)
@@ -90,10 +96,10 @@ if (WIN32)
 endif(WIN32)
 
 #copy resource files to build folder so that the executable can find them in the working directory
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                       ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>
-					   )
+#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+#                   COMMAND ${CMAKE_COMMAND} -E copy_directory
+#                       ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>
+#					   )
 			
 #copy the basic graphics resources to the build directory			
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
