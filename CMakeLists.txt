@@ -2,10 +2,14 @@
 # !!!!!!!!!!!!! EDIT THE FOLLOWING LINE AS NEEDED TO POINT AT YOUR BASIC GRAPHICS LIBARARY INSTALL !!!!!!!!!!!!! 
 list(APPEND CMAKE_PREFIX_PATH ../basicgraphics/build/install ../minvr/build/install)
 
+
+
 message(STATUS "prefix path: ${CMAKE_PREFIX_PATH}")
 
 # Using 3.9 to get a modern version of FindOpenGL.cmake
 cmake_minimum_required (VERSION 3.9) 
+
+set (CMAKE_CXX_STANDARD 11)
 
 # Dependencies that are auto-downloaded, built, and installed for you will go here.  So, you 
 # may use this even if not planning to install this particular project on your system.
